@@ -8,6 +8,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,8 @@ export class LoginComponent {
   constructor(
     private service: AuthService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(){
@@ -43,26 +45,36 @@ export class LoginComponent {
   }
 
   submitForm() {
-    this.service.login(this.loginForm.value).subscribe((res) => {
-      this.isSpinning = true;
-      if (res.userId != null){
-        const user ={
-          id: res.userId,
-          name: res.username,
-          role: res.userRole
-        }
-        StorageService.saveToken(res.jwt);
-        StorageService.saveUser(user);
-        if (StorageService.isAdminLoggedIn()){
-          this.router.navigateByUrl("admin/dashboard");
+    this.service.login(this.loginForm.value).subscribe(
+      (res) => {
+        this.isSpinning = true;
+
+        if (res.userId !== null) {
+          const user = {
+            id: res.userId,
+            name: res.username,
+            role: res.userRole
+          };
+
+          StorageService.saveToken(res.jwt);
+          StorageService.saveUser(user);
+
+          if (StorageService.isAdminLoggedIn()) {
+            this.router.navigateByUrl("admin/dashboard");
+          } else if (StorageService.isCustomerLoggedIn()) {
+            this.router.navigateByUrl("customer/dashboard");
+          }
+
           this.isSpinning = false;
-        }else if(StorageService.isCustomerLoggedIn()){
-          this.router.navigateByUrl("customer/dashboard")
+        } else {
+          console.error('Invalid server response:', res);
           this.isSpinning = false;
         }
-      } else {
-        console.log("Bad credentials")
+      },
+      (error) => {
+        this._snackBar.open("🤬 Invalid username or password.", "Close", { duration: 2000, horizontalPosition: 'center', verticalPosition: 'top' });
+        this.isSpinning = false;
       }
-    })
+    );
   }
 }

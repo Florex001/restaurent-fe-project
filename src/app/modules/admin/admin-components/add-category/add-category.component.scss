@@ -1,59 +1,39 @@
-.parent {
-  width: 100%;
-  min-height: 100vh;
+.child{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  background-color: whitesmoke;
+  width: 700px;
+  height: 700px;
+  border-radius: 25px;
+  box-shadow: 10px 10px 10px gray;
+}
 
-  .child {
-    padding: 50px;
-    width: 100%;
-    max-width: 680px;
-    background-color: white;
-    box-shadow: 1px 1px 15px -7px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
+.parent{
+  justify-content: center;
+  display: flex;
+  margin-top: 100px;
+}
 
-    .imgDiv {
-      width: 100%;
-      text-align: center;
-      margin-bottom: 20px;
-    }
+.form-control mat-form-field {
+  width: 500px;
+}
 
-    .profile-badge {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+.form-control textarea.mat-input-element,
+.form-control input.mat-input-element {
+  width: 100%;
+}
 
-      .profile {
-        height: 180px;
-        width: 180px;
-        margin-bottom: 5px;
-        object-fit: cover;
-        border-radius: 50%;
-      }
+.profile-badge{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-      .upload-label {
-        cursor: pointer;
-      }
-
-      .button.upload-icon {
-        width: 70px;
-        height: 35px;
-        margin-top: 10px;
-      }
-    }
-
-    .form-item {
-      .form-control {
-        input, textarea {
-          width: 100%;
-        }
-      }
-    }
-
-    .login-form-button {
-      margin-top: 20px;
-      width: 100%;
-    }
-  }
+.profile-image{
+  max-width: 250px;
+  max-height: 250px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

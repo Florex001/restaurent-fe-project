@@ -1,39 +1,38 @@
 <div class="parent">
   <div class="child">
     <div class="imgDiv">
-      <h2 style="margin-left: 200px;">Add category</h2>
+      <h2>Add category</h2>
     </div>
 
-    <form>
+    <form [formGroup]="categoryForm" (ngSubmit)="submitForm()" >
       <div class="row">
-        <div class="col" md="24" sm="24" xs="24">
-          <div class="profile-badge">
-            <label for="upload_profile_image" class="upload-label">
-              <img class="profile" alt="profile">
-            </label>
-            <input type="file" class="button" type="primary" id="upload_profile_image" accept="image/png, image/gif, image/jpeg">
-            <button class="button" shape="circle"></button>
-          </div>
+        <div class="profile-badge">
+          <img [src]="getImageUrl()" alt="profile" *ngIf="categoryForm.get('categoryImage').value" class="profile-image">
+          <input type="file" class="button" id="upload_profile_image" accept="image/png, image/gif, image/jpeg" (change)="previewImage($event)">
         </div>
 
-        <div class="col" span="24" style="margin-top: 20px;">
+        <div class="col" style="margin-top: 20px;">
           <div class="form-item">
-            <div class="form-control" hasFeedback xs="24" errorTip="This input is required.">
-              <input type="text" class="input" placeholder="Name" />
+            <div class="form-control">
+              <mat-form-field appearance="fill">
+                <input matInput type="text" placeholder="Name" formControlName="name">
+              </mat-form-field>
             </div>
           </div>
         </div>
 
         <div class="col" span="24">
           <div class="form-item">
-            <div class="form-control" hasFeedback xs="24" errorTip="This input is required.">
-              <textarea rows="1" class="input" placeholder="Description"></textarea>
+            <div class="form-control">
+              <mat-form-field appearance="fill">
+                <textarea matInput type="text" placeholder="Description" formControlName="description"></textarea>
+              </mat-form-field>
             </div>
           </div>
         </div>
       </div>
 
-      <button class="button login-form-button login-form-margin" type="button">Add</button>
+      <button mat-raised-button color="accent" type="submit">Add</button>
     </form>
 
   </div>
