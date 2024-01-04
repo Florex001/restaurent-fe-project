@@ -7,8 +7,8 @@
     <form [formGroup]="categoryForm" (ngSubmit)="submitForm()" >
       <div class="row">
         <div class="profile-badge">
-          <img [src]="getImageUrl()" alt="profile" *ngIf="categoryForm.get('categoryImage').value" class="profile-image">
-          <input type="file" class="button" id="upload_profile_image" accept="image/png, image/gif, image/jpeg" (change)="previewImage($event)">
+          <img [src]="imagePreview" alt="profile" *ngIf="selectedFile" class="profile-image">
+          <input type="file" class="button" id="upload_profile_image" accept="image/png, image/gif, image/jpeg" (change)="onFileSelected($event)">
         </div>
 
         <div class="col" style="margin-top: 20px;">

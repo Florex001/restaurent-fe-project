@@ -5,6 +5,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {NgIf} from "@angular/common";
+import {AdminService} from "../../admin-services/admin.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 @Component({
@@ -25,44 +27,50 @@ import {NgIf} from "@angular/common";
 export class AddCategoryComponent {
 
   categoryForm: FormGroup;
+  selectedFile: File | null;
+  imagePreview: string | ArrayBuffer | null;
 
   constructor(
-    private fb: FormBuilder
+    private service: AdminService,
+    private fb: FormBuilder,
+    private _snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(){
     this.categoryForm = this.fb.group({
-      categoryImage: ['', Validators.required],
       name: [null, Validators.required],
       description: [null, Validators.required]
     })
   }
 
+
   submitForm(){
-    console.log(this.categoryForm.value);
+    const formData :FormData = new FormData();
+    formData.append("img", this.selectedFile);
+    formData.append("name", this.categoryForm.get("name").value);
+    formData.append("description", this.categoryForm.get("description").value);
+    this.service.createCategory(formData).subscribe(
+      (res) => {
+        this._snackBar.open("✔️Success", "Close", {duration: 2000, horizontalPosition: 'center', verticalPosition: 'top'});
+      }, (error) => {
+        this._snackBar.open("🤬Oh no...", "Close", {duration: 2000, horizontalPosition: 'center', verticalPosition: 'top'});
+      }
+    )
   }
 
-  previewImage(event: any): void {
-    const input = event.target;
-    const file = (input.files as FileList)[0];
-
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onload = (e: any) => {
-        this.categoryForm.patchValue({
-          categoryImage: e.target.result
-        });
-      };
-
-      reader.readAsDataURL(file);
-    }
+  onFileSelected(event:any){
+    this.selectedFile = event.target.files[0];
+    this.previewImage();
   }
 
-
-  getImageUrl(): string {
-    return this.categoryForm.get('categoryImage').value;
+  previewImage(): void {
+   const reader = new FileReader();
+   reader.onload = () => {
+     this.imagePreview = reader.result
+   }
+   reader.readAsDataURL(this.selectedFile)
   }
+
 
 
 }
