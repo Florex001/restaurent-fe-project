@@ -1,0 +1,36 @@
+<div class="bg">
+  <div *ngIf="isSpinning" class="loading-overlay">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+
+<div class="login-container">
+
+  <h1>Login</h1>
+
+      <form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
+        <div class="form-item">
+          <div class="form-control">
+            <mat-form-field appearance="fill">
+              <mat-label>Email</mat-label>
+              <input matInput type="text" placeholder="johndoe@gmail.com" formControlName="email">
+              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-control">
+            <mat-form-field appearance="fill">
+              <mat-label>Password</mat-label>
+              <input matInput type="password" placeholder="password" formControlName="password">
+              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <button mat-raised-button color="accent">Login</button>
+        Or <a routerLink="/signup"> register now! </a>
+      </form>
+</div>
+</div>
+

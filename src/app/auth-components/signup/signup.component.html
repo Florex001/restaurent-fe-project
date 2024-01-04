@@ -1,0 +1,46 @@
+  <div class="bg">
+    <div *ngIf="isSpinning">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+    <div class="signup-container">
+
+      <h1>Sign Up</h1>
+
+      <form [formGroup]="validateForm" (ngSubmit)="register()">
+        <div class="form-item">
+          <div class="form-control">
+            <mat-form-field appearance="fill">
+              <mat-label>Email</mat-label>
+              <input matInput type="text" placeholder="johndoe@gmail.com" formControlName="email">
+              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-control">
+            <mat-form-field appearance="fill">
+              <mat-label>Password</mat-label>
+              <input matInput type="password" placeholder="password" formControlName="password">
+              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-control">
+            <mat-form-field appearance="fill">
+              <mat-label>Name</mat-label>
+              <input matInput type="text" placeholder="John Doe" formControlName="name">
+              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <button mat-raised-button color="accent">Registration</button>
+        Or <a routerLink="/login"> login now! </a>
+      </form>
+
+    </div>
+  </div>
