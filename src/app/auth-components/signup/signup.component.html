@@ -12,9 +12,12 @@
           <div class="form-control">
             <mat-form-field appearance="fill">
               <mat-label>Email</mat-label>
-              <input matInput type="text" placeholder="johndoe@gmail.com" formControlName="email">
+              <input matInput type="email" placeholder="johndoe@gmail.com" formControlName="email">
               <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
             </mat-form-field>
+            <mat-error *ngIf="validateForm.get('email').hasError('email') && validateForm.get('email').dirty">
+              Please enter a valid email address.
+            </mat-error>
           </div>
         </div>
 
@@ -25,6 +28,19 @@
               <input matInput type="password" placeholder="password" formControlName="password">
               <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
             </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-control">
+            <mat-form-field appearance="fill">
+              <mat-label>Password confirm</mat-label>
+              <input matInput type="password" placeholder="passwordConfirm" formControlName="passwordConfirm">
+              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            </mat-form-field>
+            <mat-error *ngIf="validateForm.hasError('passwordMismatch') && validateForm.get('passwordConfirm').dirty">
+              Passwords do not match.
+            </mat-error>
           </div>
         </div>
 

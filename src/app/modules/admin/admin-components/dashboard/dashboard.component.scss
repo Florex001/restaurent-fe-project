@@ -1,0 +1,46 @@
+.body-container {
+  padding: 16px;
+}
+
+.child {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.example-card {
+  margin: 10px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 300px;
+}
+
+mat-card {
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.example-card img {
+  max-width: 100%;
+  height: auto;
+}
+
+.card-container {
+  height: 100%;
+  margin: 0 auto;
+}
+
+mat-grid-list {
+  width: 100%;
+}
+
+mat-card-content{
+  padding: 10px;
+  word-wrap: break-word;
+}
+
+
+
+
+
+
+

@@ -9,6 +9,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {passwordMatchValidator} from "../../validators.passwordMatchValidator";
 
 
 @Component({
@@ -41,21 +42,41 @@ export class SignupComponent {
 
   ngOnInit(){
     this.validateForm = this.fb.group({
-      email: ["", Validators.required],
+      email: ["", Validators.required, Validators.email],
       password: ["", Validators.required],
+      passwordConfirm: ["", Validators.required],
       name: ["", Validators.required],
-    })
+    }, { validators: passwordMatchValidator })
   }
 
 
-  register(){
-    this.service.signup(this.validateForm.value).subscribe((res) => {
-      if (res.id != null){
-        this._snackBar.open("✔️Success", "Close", {duration: 2000, horizontalPosition: 'center', verticalPosition: 'top'});
-      } else {
-        this._snackBar.open("🤬Oh no...", "Close", {duration: 2000, horizontalPosition: 'center', verticalPosition: 'top'});
-      }
-    })
+  register() {
+    if (this.validateForm.valid) {
+      this.service.signup(this.validateForm.value).subscribe(
+        (res) => {
+          if (res.id != null) {
+            this.showSuccessSnackBar();
+          } else {
+            this.showErrorSnackBar("🤬Oh noo..");
+          }
+        },
+        (error) => {
+          console.error('Error during registration:', error);
+          this.showErrorSnackBar("🤬Oh noo..");
+        }
+      );
+    } else {
+      this.showErrorSnackBar('Please fill in all required fields and ensure passwords match.');
+    }
+  }
+
+
+  private showSuccessSnackBar() {
+    this._snackBar.open('✔️Success', 'Close', { duration: 2000, horizontalPosition: 'center', verticalPosition: 'top' });
+  }
+
+  private showErrorSnackBar(msg:string) {
+    this._snackBar.open(msg, 'Close', { duration: 2000, horizontalPosition: 'center', verticalPosition: 'top' });
   }
 
 }
