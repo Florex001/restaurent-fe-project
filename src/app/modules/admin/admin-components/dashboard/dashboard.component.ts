@@ -6,6 +6,7 @@ import {NgForOf} from "@angular/common";
 import {MatCardModule} from "@angular/material/card";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatChipsModule} from "@angular/material/chips";
+import {SafeUrlPipe} from "../../../../../pipe/SafeUrlPipe";
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +17,8 @@ import {MatChipsModule} from "@angular/material/chips";
     NgForOf,
     MatCardModule,
     MatGridListModule,
-    MatChipsModule
+    MatChipsModule,
+    SafeUrlPipe
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
